@@ -13,7 +13,7 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
-Vue.filter('formatDate', function (str: string) {
+Vue.filter('formatDate', function (str: string | number) {
     if (!str) { return '';}
     const date = new Date(str);
     const time = new Date().getTime() - date.getTime();
@@ -22,21 +22,22 @@ Vue.filter('formatDate', function (str: string) {
     } else if (time / 1000 < 30) {
         return '刚刚';
     } else if (time / 1000 < 60) {
-        return parseInt((time / 1000) + '秒前');
+        return parseInt(time / 1000) + '秒前';
     } else if (time / 60000 < 60) {
-        return parseInt((time / 60000) + '分钟前');
+        return parseInt(time / 60000) + '分钟前';
     } else if (time / 3600000 < 24) {
-        return parseInt((time / 3600000) + '小时前');
+        return parseInt(time / 3600000) + '小时前';
     } else if (time / 86400000 < 31) {
-        return parseInt((time / 86400000) + '天前');
+        return parseInt(time / 86400000) + '天前';
     } else if (time / 2629800000 < 12) {
-        return parseInt((time / 2629800000) + '月前');
+        return parseInt(time / 2629800000) + '月前';
     } else {
-        return parseInt((time / 31557600000) + '年前');
+        return parseInt(time / 31557600000) + '年前';
     }
 });
 
-Vue.filter('tabFormatter', function (post){
+// 处理不同模块类型的文字
+Vue.filter('tabFormatter', function (post: any){
     if(post.good === true){
         return '精华'
     } else if(post.top === true){
