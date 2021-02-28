@@ -14,7 +14,7 @@
             <span>招聘</span>
           </div>
         </li>
-        <li v-for="post in posts" :key="post">
+        <li v-for="(post, index) in posts" :key="index">
           <!--头像-->
           <img :src="post.author.avatar_url" alt="">
           <span class="all_count">
@@ -29,12 +29,10 @@
           <router-link :to="{
             name:'post_content',
             params:{
-              id:post.id
+              id:post.id,
             }
           }">
-            <span>
-              {{post.title}}
-            </span>
+            <span>{{post.title}}</span>
           </router-link>
           <span class="last_reply">{{post.last_reply_at | formatDate }}</span>
         </li>
@@ -50,7 +48,7 @@
     data(){
       return {
         isLoading: false,
-        posts:[]
+        posts:[],
       }
     },
     methods:{
